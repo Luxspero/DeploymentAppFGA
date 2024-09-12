@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+    <!-- qunit css -->
+    <link rel="stylesheet" href="qunit.css" />
+    <!-- qunit js -->
+    <script src="qunit.js"></script>
+    <!-- load js function -->
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <h1>Unit test</h1>
+
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script>
+      QUnit.module("Math", function () {
+        QUnit.test("Add", function (assert) {
+          assert.equal(add(1, 5), 6, "1 + 5, Hasilnya 6");
+          assert.equal(add(-1, 5), 4, "-1 + 5, Hasilnya 4");
+          assert.equal(add(0, 5), 5, "0 + 5, Hasilnya 5");
+        });
+
+        QUnit.test("Pengurangan", function (assert) {
+          assert.equal(subtract(5, 1), 4, "5 - 1, Hasilnya 4");
+          assert.equal(subtract(5, 5), 0, "5 - 5, Hasilnya 0");
+          assert.equal(subtract(5, 0), 5, "5 - 0, Hasilnya 5");
+        });
+
+        QUnit.test("Perkalian", function (assert) {
+          assert.equal(multiply(5, 1), 5, "5 * 1, Hasilnya 5");
+          assert.equal(multiply(5, 5), 25, "5 * 5, Hasilnya 25");
+          assert.equal(multiply(5, 0), 0, "5 * 0, Hasilnya 0");
+        });
+
+        QUnit.test("Pembagian", function (assert) {
+          assert.equal(devide(5, 1), 5, "5 / 1, Hasilnya 5");
+          assert.equal(devide(5, 5), 1, "5 / 5, Hasilnya 1");
+        });
+      });
+
+      QUnit.module("API", function () {
+        QUnit.test("REST API", function (assert) {
+          var done = assert.async();
+
+          getAPI(
+            "https://jsonplaceholder.typicode.com/posts/1",
+            function (data) {
+              assert.equal(data.userId, 1, "UserId adalah 1");
+              done();
+            }
+          );
+        });
+      });
+
+      QUnit.module("Function", function () {
+        QUnit.test("isNameValid", function (assert) {
+          assert.equal(isNameValid("John"), true, "John");
+          assert.equal(isNameValid("John Doe"), false, "John Doe");
+        });
+      });
+
+      QUnit.module("DOM", function () {
+        QUnit.test("Tambah element div", function (assert) {
+          //start
+          var done = assert.async();
+          var element = document.createElement("div");
+          element.id = "test";
+          document.body.appendChild(element);
+
+          assert.ok(
+            document.getElementById("test"),
+            "Document dengan element div berhasil dibuat"
+          );
+          //end
+          done();
+        });
+      });
+    </script>
+  </body>
+</html>
